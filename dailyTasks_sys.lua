@@ -1,5 +1,4 @@
 print('>> Loading daily tasks system.')
-dofile('data/lib/daily_tasks/dailyTasks_list.lua')
 
 dailyTasks = {}
 dailyTasks.__index = dailyTasks
@@ -10,7 +9,7 @@ local reward = {[1] = {name = 'daily token', idClient = 12409, idServer = 12660}
 				[2] = {name = 'daily token', idClient = 12409, idServer = 12660},
 }
 
-local taskDescription = {--Title, Description, looktype/itemIdClient,
+local taskDescription = {--Title, Description, [Kill] = name, looktype , [Drop] = name, idclient, idserver
 	{'Kill Wolfs', 'I need you to kill some wolves and get these items.',
 		{['Kill'] = {name={'wolf'}, looktype={27}}, ['Drop'] = {name={'wolf paw'}, idClient = {5897}, idServer = {5897} }}
 	},
@@ -47,16 +46,8 @@ local taskCount = {
 
 function generateOutfit()
 	local npcLooktypes = {652,660,661,662,665,666,668,669,670,803,804,805, 806, 807, 808}
-	local colors = {1, 2}
-
-	local head =  math.random(1, #colors)
-	local body = math.random(1, #colors)
-	local legs = math.random(1, #colors)
-	local feet = math.random(1, #colors)
-
 	local looktype = npcLooktypes[math.random(1, #npcLooktypes)]
-
-	local outfit = {type = looktype, head = 2, body = 3, legs = 4, feet = 5, auxType = 1, addons = 0}
+	local outfit = {type = looktype}
 
 	return outfit
 end
@@ -122,9 +113,6 @@ function generateTask(rank)
 	return task
 end
 
-function generateReward()
-end
-
 function sendMissionList(player, rank)
 	local missions = {}
 	for i=1, maxTask do
@@ -154,7 +142,6 @@ function dailyTasksParseOpcode(player, packet)
 
 		task = data.task
 		local storages = 0
-
 		player:setStorageValue(taskStorage, 0)
 		player:sendTextMessage(MESSAGE_INFO_DESCR, 'You started ' ..task.title.. ' mission')
 
@@ -168,7 +155,6 @@ function dailyTasksParseOpcode(player, packet)
 		end
 
 	elseif action == 'claim' then
-
 		if completedTask(player, task) then
 			player:addItem(task.reward.idServer, task.rewardCount)
 			player:sendTextMessage(MESSAGE_INFO_DESCR, 'Voce ganhou ' ..task.rewardCount.. 'x ' ..task.reward.name.. ' por completar a task')
@@ -211,8 +197,9 @@ function haveDropItems(player, task)
 	        	return false
 	       	end   
 	    end
-	else return false end
-
+	else 
+		return false 
+	end
 	return true
 end
 
@@ -227,17 +214,14 @@ function haveKilled(player, task)
 		    end
 		end
 	end
-
 	return true
 end
 
 function completedTask(player, task)
 	local activatedTask = task
-
 	local tags = {}
 	for tag, missionContent in pairs(activatedTask.types) do
 		table.insert(tags, tag)
-
 	end
 
 	if #tags > 1 then
@@ -280,6 +264,5 @@ function dailyTasks:onKill(player, monsterName)
 			end
 		end
 	end
-
 	return true
 end
