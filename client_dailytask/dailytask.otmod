@@ -1,0 +1,8 @@
+Module
+  name: game_dailytask
+  autoload-priority: 1001
+  autoload: true
+  scripts: [ dailytask ]
+  sandboxed: true
+  @onLoad: init()
+  @onUnload: terminate()

@@ -1,0 +1,195 @@
+NoMinimizerMiniWindow
+  id: missionListWindow
+  size: 550 560
+  !text: tr('Missions')
+  icon: /images/topbuttons/skills
+  MiniWindowContents
+    padding: 4
+
+  Button
+    id: rankD
+    size: 109 25
+    !text: tr('Rank D')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 2
+    icon: /images/topbuttons/skills
+    icon-offset: -40 0
+    @onClick: toggle()
+
+  Button
+    id: rankC
+    size: 109 25
+    !text: tr('Rank C')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 111
+    @onClick: update()
+
+  Button
+    id: rankB
+    size: 109 25
+    !text: tr('Rank B')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 220
+    @onClick: update()
+
+  Button
+    id: rankA
+    size: 109 25
+    !text: tr('Rank A')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 329
+    @onClick: update()
+
+  Button
+    id: rankS
+    size: 109 25
+    !text: tr('Rank S')
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 25
+    margin-left: 438
+    @onClick: update()
+
+missionList < Panel
+  size: 535 90
+  border-width: 1
+  border-color: black
+  anchors.top: prev.bottom
+  anchors.left: parent.left
+  margin-top: 10
+  margin-left: 5
+  margin-bottom: 10
+  background-color: #ffffff10
+  phantom: true
+  &save: true
+
+  Creature
+    id: outfitCreatureBox
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-left: 1
+    margin-bottom: 1
+    text-align: top
+    image-source: alpha
+    fixed-creature-size: true
+
+  Label
+    id: titleTask
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 10
+    margin-left: 100
+    text-align: left
+    text-auto-resize: true
+    phantom: true
+
+  Label
+    id: descriptionTask
+    size: 300 30
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 10
+    margin-left: 220
+    text-wrap: true
+    text-align: left
+    text-auto-resize: true
+    phantom: true
+
+  UIButton
+    id: rewardTask
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-left: 100
+    margin-bottom: 2
+    image-source: /images/game/dailytasks/reward
+
+  UIItem
+    id: rewardItems
+    size: 32 32
+    text-align: left
+    text-offset: -10 0
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin-bottom: 5
+    margin-left: 150
+    image-source: alpha
+    virtual: true
+
+  Button
+    id: abandonButton
+    size: 12 12
+    !text: 'X'
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: 3
+
+  Button
+    id: claimButton
+    size: 70 20
+    !text: tr('Claim!')
+    color: #ffb732
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: 10
+    margin-bottom: 5
+
+  Button
+    id: acceptButton
+    size: 70 20
+    !text: tr('Accept!')
+    color: green
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-right: 10
+    margin-bottom: 5
+
+taskContent < Panel
+  size: 270 32
+  anchors.top: parent.top
+  anchors.left: parent.left
+  margin-top: 57
+  margin-left: 210
+  background-color: alpha
+  border-color: alpha
+  image-fixed-ratio: true
+  phantom: true
+
+kill < backgroundCreature
+  size: 32 32
+  border-width: 1
+  text-align: left
+  text-offset: -25 0
+  anchors.top: parent.top
+  anchors.left: parent.left
+  background-color: alpha
+  border-color: alpha
+  phantom: true
+  virtual: true
+
+  $!first:
+    anchors.left: prev.left
+    margin-left: 70
+    
+drop < UIItem
+  size: 32 32
+  text-align: left
+  text-offset: -27 0
+  anchors.top: parent.top
+  anchors.left: parent.left
+  image-source: alpha
+  phantom: true
+  virtual: true
+
+  $!first:
+    anchors.left: prev.left
+    margin-left: 70
+
+  
